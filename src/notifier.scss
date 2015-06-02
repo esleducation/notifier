@@ -1,0 +1,107 @@
+/*
+ * DEV STYLES
+ */
+
+body {
+	font-family: arial, sans-serif;
+	margin: 2rem;
+}
+
+
+/*
+ * NOTIFICATIONS STYLES
+ */
+
+.eegnotifs {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	width: 20rem;
+	margin: 5px;
+}
+
+.eegnotif {
+	overflow: hidden;
+	position: relative;
+	background: rgba(0,0,0,0.75);
+	color: white;
+	margin: 5px;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid rgba(0,0,0,0.9);
+	border-radius: 3px;
+}
+
+.eegnotif--warn {
+	background-color: rgba(240, 173, 78, 0.9);
+	border-color: rgba(238, 162, 54, 0.98);
+	color: #000;
+}
+
+	.eegnotif__content {
+
+	}
+
+	.eegnotif__control--close {
+		-webkit-appearance: initial;
+		background: transparent;
+		border: none;
+		color: white;
+		position: absolute;
+		right: 7px;
+		top: 7px;
+		cursor: pointer;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.eegnotif__actions {
+		text-align: right;
+		margin-top: 10px;
+	}
+
+	.eegnotif__action {
+		-webkit-appearance: initial;
+		border: none;
+		background: #EEE;
+		color: #666;
+		border: none;
+		text-transform: uppercase;
+		margin: 5px;
+		display: inline-block;
+		cursor: pointer;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.eegnotif__action--primary {
+		color: white;
+		background-color: #ff5a5f;
+	}
+
+
+
+.notification-enter {
+	transition: opacity 0.2s ease-in;
+	opacity: 0;
+
+	&.notification-enter-active {
+		opacity: 1;
+	}
+}
+
+.notification-leave {
+	transition: all 0.2s ease-in;
+	opacity: 1;
+	max-height: 75px;
+
+	&.notification-leave-active {
+		opacity: 0;
+		max-height: 0px;
+	}
+}

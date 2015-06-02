@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notifier Demo</title>
+</head>
+<body>
+	<h1>Notifier demo</h1>
+	<p>Notifications displayed below</p>
+
+	<script src="dist/notifier.js"></script>
+	<script>
+		Notifier.send({
+			type: Notifier.type.WARN,
+			text: 'Cras suscipit interdum ipsum nec tincidunt. Duis massa enim, hendrerit eu ante congue.',
+			duration: -1,
+			modal: true,
+			actions: [{
+				label : 'Cancel',
+				fn : function(){
+					console.log('cancel');
+					this.remove();
+				}
+			}, {
+				label : 'Apply',
+				type : Notifier.actionType.PRIMARY,
+				fn : function(){
+					console.log('apply');
+					this.remove();
+				}
+			}]
+		});
+
+		Notifier.send({
+			text  : 'Delayed notification',
+			delay : 1.5,
+			duration: -1
+		});
+
+		id = Notifier.send({
+			text  : 'Never seen notification',
+			delay : 2,
+			duration: -1
+		});
+
+		Notifier.cancel(id);
+	</script>
+</body>
+</html>
