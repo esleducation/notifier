@@ -7,7 +7,6 @@ event    = require 'domtastic/commonjs/event'
 $                = selector.$
 $.fn             = {}
 $.fn.addClass    = domClass.addClass
-$.fn.append      = dom.append
 $.fn.appendTo    = domExtra.appendTo
 $.fn.on          = event.on
 $.fn.remove      = domExtra.remove

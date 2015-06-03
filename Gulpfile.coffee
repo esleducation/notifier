@@ -24,7 +24,13 @@ webpackParams =
 gulp.task 'webpack', ->
 	gulp.src 'src/notifier.coffee'
 	.pipe gulpWebpack webpackParams
-	# .pipe uglify()
+	.pipe gulp.dest('dist/')
+
+gulp.task 'production', ->
+	gulp.src 'src/notifier.coffee'
+	.pipe gulpWebpack _.assign webpackParams,
+		devtool: null
+	.pipe uglify()
 	.pipe gulp.dest('dist/')
 
 

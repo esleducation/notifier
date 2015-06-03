@@ -31,12 +31,31 @@ body {
 	font-size: 14px;
 	border: 1px solid rgba(0,0,0,0.9);
 	border-radius: 3px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.eegnotif--success {
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	color: #FFF;
 }
 
 .eegnotif--warn {
 	background-color: rgba(240, 173, 78, 0.9);
 	border-color: rgba(238, 162, 54, 0.98);
 	color: #000;
+}
+
+.eegnotif--error {
+	background-color: #d9534f;
+	border-color: #d43f3a;
+	color: #FFF;
+}
+
+.eegnotif--debug {
+	background-color: #5bc0de;
+	border-color: #46b8da;
+	color: #FFF;
 }
 
 	.eegnotif__content {
@@ -67,7 +86,7 @@ body {
 		-webkit-appearance: initial;
 		border: none;
 		background: #EEE;
-		color: #666;
+		color: #333;
 		border: none;
 		text-transform: uppercase;
 		margin: 5px;
@@ -84,10 +103,8 @@ body {
 		background-color: #ff5a5f;
 	}
 
-
-
 .notification-enter {
-	transition: opacity 0.2s ease-in;
+	transition: opacity 0.2s ease-out;
 	opacity: 0;
 
 	&.notification-enter-active {
@@ -96,12 +113,14 @@ body {
 }
 
 .notification-leave {
-	transition: all 0.2s ease-in;
+	transition: all 0.2s ease-out;
 	opacity: 1;
 	max-height: 75px;
 
 	&.notification-leave-active {
 		opacity: 0;
 		max-height: 0px;
+		margin: 0;
+		padding: 0;
 	}
 }

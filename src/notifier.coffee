@@ -98,6 +98,7 @@ class Notification
 		delay        : 0
 		actions      : []
 
+
 	actionDefaults :
 		label : 'Button'
 		type  : ActionType.DEFAULT
@@ -122,6 +123,7 @@ class Notification
 
 		return @DOMNode
 
+
 	_setControls: ->
 		if not @modal
 			# Close control
@@ -130,6 +132,7 @@ class Notification
 				.appendTo @DOMNode
 
 		return
+
 
 	_setActions: ->
 		if @actions.length
@@ -145,7 +148,6 @@ class Notification
 						.appendTo actions
 
 
-
 	_getAnimator: ->
 		return @DOMAnimator if @DOMAnimator?
 
@@ -158,7 +160,7 @@ class Notification
 
 
 	showIn: (target, finishCallback) ->
-		target.append @getDOMNode()
+		@getDOMNode().appendTo target
 		@_getAnimator().transition 'enter', finishCallback
 
 
@@ -174,11 +176,12 @@ class Notifier
 
 		constructor: ->
 			# Add notifications wrapper to document
-			@wrapper = $ "<div class='#{bemWrapper}'></div>"
-			$(document.body).append @wrapper
+			@wrapper = $("<div class='#{bemWrapper}'></div>").appendTo document.body
 
 			# Prepare empty queue
 			@queue = {}
+
+			return
 
 
 		send: (params) ->
@@ -196,13 +199,15 @@ class Notifier
 			# Send back id for cancellation
 			return id
 
+
 		cancel: (id) ->
 			if @queue[id]
 				clearTimeout @queue[id].delayTimeout
 				delete @queue[id]
-				return true
+				true
 			else
-				return false
+				false
+
 
 		register: (notification) ->
 			@queue[notification.id] = notification
@@ -219,10 +224,14 @@ class Notifier
 					@remove notification
 				, notification.duration * 1000
 
+			return
+
 
 		remove: (notification) ->
 			notification.remove()
 			delete @queue[notification.id] if @queue[notification.id]
+
+			return
 
 
 NotifierInstance = new Notifier
