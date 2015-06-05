@@ -19,6 +19,8 @@
 			modal: true,
 			actions: [{
 				label : 'Cancel',
+				type : Notifier.actionType.CUSTOM,
+				className : 'btn--dark',
 				fn : function(){
 					console.log('cancel');
 					this.remove();
@@ -33,20 +35,20 @@
 			}]
 		});
 
-		id = Notifier.send({
+		Notifier.send({
 			type: Notifier.type.SUCCESS,
 			icon: false,
 			duration: -1,
 			text  : 'Fusce maximus elit quis ex.',
 		});
 
-		id = Notifier.send({
+		Notifier.send({
 			type: Notifier.type.ERROR,
 			duration: -1,
 			text  : 'Error : Fusce maximus elit quis ex.',
 		});
 
-		id = Notifier.send({
+		Notifier.send({
 			type: Notifier.type.DEBUG,
 			text  : 'Debug : Fusce maximus elit quis ex.',
 		});
@@ -67,6 +69,33 @@
 			duration: -1,
 			text  : 'Curabitur dapibus nec mauris fringilla elementum. Nulla quis metus sollicitudin.',
 			delay: 3
+		});
+
+		Notifier.send({
+			type: Notifier.type.INFO,
+			text: 'Cras suscipit interdum ipsum nec tincidunt. Duis massa enim, hendrerit eu ante congue.',
+			duration: -1,
+			modal: false,
+			actions: [{
+				label : 'Cancel',
+				fn : function(){
+					console.log('cancel');
+					this.remove();
+				}
+			}, {
+				label : 'No',
+				fn : function(){
+					console.log('no');
+					this.remove();
+				}
+			}, {
+				label : 'Apply',
+				type : Notifier.actionType.DANGER,
+				fn : function(){
+					console.log('apply');
+					this.remove();
+				}
+			}]
 		});
 
 		Notifier.cancel(id);

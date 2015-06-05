@@ -24,11 +24,13 @@ NotificationType =
 	WARN    : 'warn'
 	ERROR   : 'error'
 	DEBUG   : 'debug'
+	CUSTOM  : 'custom'
 
 ActionType =
 	DEFAULT : 'default'
 	PRIMARY : 'primary'
 	DANGER  : 'danger'
+	CUSTOM  : 'custom'
 
 
 ###
@@ -87,21 +89,22 @@ class Animator
 class Notification
 
 	defaults :
-		modal        : false
-		closeOnClick : false                  # NOT IMPLEMENTED
-		type         : NotificationType.INFO
-		icon         : true                   # (font icon (/base64/img url)
-		text         : 'Hello world !'
-		template     : 'default'
-		duration     : 6
-		delay        : 0
 		actions      : []
+		closeOnClick : false                  # NOT IMPLEMENTED
+		delay        : 0
+		duration     : 6
+		icon         : true                   # (font icon (/base64/img url)
+		modal        : false
+		template     : 'default'
+		text         : 'Hello world !'
+		type         : NotificationType.INFO
 
 
 	actionDefaults :
-		label : 'Button'
-		type  : ActionType.DEFAULT
-		fn    : => @remove()
+		className : ''
+		fn        : => @remove()
+		label     : 'Button'
+		type      : ActionType.DEFAULT
 
 
 	constructor: (params) ->
@@ -150,7 +153,7 @@ class Notification
 					# Set default action params
 					action = assign {}, @actionDefaults, action
 
-					$("<button type='button' class='#{bemItem}__action #{bemItem}__action--#{action.type}'>#{action.label}</button>")
+					$("<button type='button' class='#{bemItem}__action #{bemItem}__action--#{action.type} #{action.className}'>#{action.label}</button>")
 						.on 'click', (e) => action.fn.apply @, e
 						.appendTo actions
 
