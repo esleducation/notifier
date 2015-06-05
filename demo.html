@@ -2,10 +2,13 @@
 <html>
 <head>
 	<title>Notifier Demo</title>
+	<link rel="stylesheet" href="http://cdn0.company.d.esl-lan.net/agency/assets/css/agency.css">
 </head>
 <body>
-	<h1>Notifier demo</h1>
-	<p>Notifications displayed below</p>
+	<div class="container padder">
+		<h1 class="section__h1">Notifier demo</h1>
+		<p>Notifications displayed below</p>
+	</div>
 
 	<script src="dist/notifier.js"></script>
 	<script>
@@ -32,6 +35,7 @@
 
 		id = Notifier.send({
 			type: Notifier.type.SUCCESS,
+			icon: false,
 			duration: -1,
 			text  : 'Fusce maximus elit quis ex.',
 		});
@@ -44,20 +48,25 @@
 
 		id = Notifier.send({
 			type: Notifier.type.DEBUG,
-			duration: -1,
 			text  : 'Debug : Fusce maximus elit quis ex.',
 		});
 
 		Notifier.send({
 			text  : 'Delayed notification',
-			delay : 1.5,
-			duration: -1
+			delay : 2
 		});
 
 		id = Notifier.send({
 			text  : 'Never seen notification',
 			delay : 2,
 			duration: -1
+		});
+
+		Notifier.send({
+			type: Notifier.type.SUCCESS,
+			duration: -1,
+			text  : 'Curabitur dapibus nec mauris fringilla elementum. Nulla quis metus sollicitudin.',
+			delay: 3
 		});
 
 		Notifier.cancel(id);

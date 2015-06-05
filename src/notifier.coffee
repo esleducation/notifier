@@ -1,6 +1,5 @@
 $       = require './domtastic-subset.coffee'
 assign  = require 'lodash/object/assign'
-css     = require './notifier.scss'
 
 
 ###
@@ -91,10 +90,10 @@ class Notification
 		modal        : false
 		closeOnClick : false                  # NOT IMPLEMENTED
 		type         : NotificationType.INFO
-		icon         : false                  # NOT IMPLEMENTED (font icon/base64/img url)
+		icon         : true                   # (font icon (/base64/img url)
 		text         : 'Hello world !'
 		template     : 'default'
-		duration     : 2
+		duration     : 6
 		delay        : 0
 		actions      : []
 
@@ -112,8 +111,16 @@ class Notification
 
 
 	_constructDOMNode: ->
+		classes = [
+			bemItem,
+			"#{bemItem}--#{@type}"
+		]
+
+		classes.push "#{bemItem}--icon" if @icon
+		classes.push "#{bemItem}--modal" if @modal
+
 		@DOMNode = $ "
-			<div class='#{bemItem} #{bemItem}--#{@type}' id='#{bemItem}--#{@id}'>
+			<div class='#{classes.join(' ')}' id='#{bemItem}--#{@id}'>
 				<div class='#{bemItem}__content'>#{@text}</div>
 			</div>
 		"
@@ -127,7 +134,7 @@ class Notification
 	_setControls: ->
 		if not @modal
 			# Close control
-			$("<button type='button' class='#{bemItem}__control--close'>X</button>")
+			$("<button type='button' class='#{bemItem}__control--close'><i class='icon-close-circle' /></button>")
 				.on 'click', (e) => @remove()
 				.appendTo @DOMNode
 

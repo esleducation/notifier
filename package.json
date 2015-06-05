@@ -15,6 +15,7 @@
     "domtastic": "^0.10.2",
     "envify": "^1.2.1",
     "gulp": "^3.8.11",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "gulp-webpack": "^1.4.0",

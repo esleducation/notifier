@@ -1,6 +1,7 @@
 _                = require 'lodash'
 gulp             = require 'gulp'
 gutil            = require 'gulp-util'
+rename           = require 'gulp-rename'
 gulpWebpack      = require 'gulp-webpack'
 uglify           = require 'gulp-uglify'
 
@@ -31,6 +32,7 @@ gulp.task 'production', ->
 	.pipe gulpWebpack _.assign webpackParams,
 		devtool: null
 	.pipe uglify()
+	.pipe rename('notifier.min.js')
 	.pipe gulp.dest('dist/')
 
 
