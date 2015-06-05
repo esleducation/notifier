@@ -2,12 +2,16 @@
   "name": "notifier",
   "description": "Notifier library",
   "version": "1.0.0",
-  "main": "build/notifier.js",
+  "main": "build/notifier.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ESL Web Team <web@esl-education.org>",
   "license": "© ESL Education SA",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.esl-lan.net/misc/notifier.git"
+  },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.2",
@@ -21,9 +25,7 @@
     "gulp-webpack": "^1.4.0",
     "lodash": "^3.9.3",
     "node-sass": "^3.1.2",
-    "npm": "^2.9.1",
-    "sass-loader": "^1.0.2",
-    "style-loader": "^0.12.3"
+    "npm": "^2.9.1"
   },
   "dependencies": {}
 }

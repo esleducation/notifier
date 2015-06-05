@@ -10,9 +10,6 @@ webpackParams =
 		loaders: [
 			test: /\.coffee$/,
 			loader: 'coffee-loader'
-		,
-			test: /\.scss$/
-			loader: 'style!css!sass'
 		]
 	output:
 		path: require("path").resolve("./dist"),
