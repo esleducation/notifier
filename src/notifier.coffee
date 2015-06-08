@@ -195,6 +195,10 @@ class Notifier
 
 
 		send: (params) ->
+			# Handle simple message form
+			if typeof params is 'string'
+				params = text : params
+
 			# Create a notification
 			notification = new Notification params
 
@@ -236,6 +240,13 @@ class Notifier
 
 			return
 
+		clearAll: (includeDelayed = false) ->
+			for id, notification of @queue
+				@cancel id if includeDelayed
+				notification.remove()
+				delete @queue[notification.id] if @queue[notification.id]
+
+
 
 		remove: (notification) ->
 			notification.remove()
@@ -251,5 +262,6 @@ NotifierInstance = new Notifier
 module.exports =
 	actionType   : ActionType
 	send         : NotifierInstance.send.bind NotifierInstance
+	clearAll     : NotifierInstance.clearAll.bind NotifierInstance
 	cancel       : NotifierInstance.cancel.bind NotifierInstance
 	type         : NotificationType

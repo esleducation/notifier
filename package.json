@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ESL Web Team <web@esl-education.org>",
+  "maintainers": [
+    "Luca Pillonel <luca-pillonel@esl-education.org>"
+  ],
   "license": "© ESL Education SA",
   "repository": {
     "type": "git",
