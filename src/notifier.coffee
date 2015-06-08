@@ -98,6 +98,8 @@ class Notification
 		template     : 'default'
 		text         : 'Hello world !'
 		type         : NotificationType.INFO
+		onShow       : null
+		onRemove     : null
 
 
 	actionDefaults :
@@ -171,12 +173,15 @@ class Notification
 
 	showIn: (target, finishCallback) ->
 		@getDOMNode().appendTo target
-		@_getAnimator().transition 'enter', finishCallback
+		@_getAnimator().transition 'enter', =>
+			finishCallback.apply @ if finishCallback?
+			@onShow.apply @ if @onShow?
 
 
 	remove: (finishCallback) ->
 		@_getAnimator().transition 'leave', =>
-			finishCallback() if finishCallback?
+			finishCallback.apply @ if finishCallback?
+			@onRemove.apply @ if @onRemove?
 			@getDOMNode().remove()
 
 ###
