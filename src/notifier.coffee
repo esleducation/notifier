@@ -240,7 +240,7 @@ class Notifier
 			# Save remove event
 			if notification.duration > -1
 				notification.displayTimeout = setTimeout =>
-					@remove notification
+					@remove notification.id
 				, notification.duration * 1000
 
 			return
@@ -253,9 +253,10 @@ class Notifier
 
 
 
-		remove: (notification) ->
-			notification.remove()
-			delete @queue[notification.id] if @queue[notification.id]
+		remove: (id) ->
+			if @queue[id]
+				@queue[id].remove()
+				delete @queue[id]
 
 			return
 
@@ -269,4 +270,5 @@ module.exports =
 	send         : NotifierInstance.send.bind NotifierInstance
 	clearAll     : NotifierInstance.clearAll.bind NotifierInstance
 	cancel       : NotifierInstance.cancel.bind NotifierInstance
+	remove       : NotifierInstance.remove.bind NotifierInstance
 	type         : NotificationType

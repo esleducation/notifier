@@ -10,13 +10,14 @@
 		<p>Notifications displayed below</p>
 		<button type="button" onclick="Notifier.clearAll()">Clear all messages</button>
 		<button type="button" onclick="Notifier.clearAll(true)">Clear all messages (including delayed message)</button>
+		<button type="button" onclick="Notifier.remove(actionsNotif)">Remove second message</button>
 	</div>
 
 	<script src="dist/notifier.js"></script>
 	<script>
 		Notifier.send("A very simple message, isn't it ?");
 
-		Notifier.send({
+		actionsNotif = Notifier.send({
 			type: Notifier.type.WARN,
 			text: 'Cras suscipit interdum ipsum nec tincidunt. Duis massa enim, hendrerit eu ante congue.',
 			duration: -1,
