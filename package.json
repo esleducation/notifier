@@ -10,25 +10,23 @@
   "maintainers": [
     "Luca Pillonel <luca-pillonel@esl-education.org>"
   ],
-  "license": "© ESL Education SA",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://gitlab.esl-lan.net/misc/notifier.git"
+    "url": "https://github.com/esleducation/notifier.git"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.3",
-    "css-loader": "^0.15.1",
     "domtastic": "^0.10.3",
-    "envify": "^3.4.0",
     "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.3",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "gulp-webpack": "^1.5.0",
     "lodash": "^3.10.0",
-    "node-sass": "^3.2.0",
     "npm": "^2.12.1"
-  },
-  "dependencies": {}
+  }
 }

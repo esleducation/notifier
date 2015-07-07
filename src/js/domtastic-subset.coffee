@@ -4,6 +4,8 @@ domExtra = require 'domtastic/commonjs/dom/extra'
 domClass = require 'domtastic/commonjs/dom/class'
 event    = require 'domtastic/commonjs/event'
 
+
+# Create a light $ object and attach needed fn
 $                = selector.$
 $.fn             = {}
 $.fn.addClass    = domClass.addClass

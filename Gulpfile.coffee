@@ -1,9 +1,12 @@
-_                = require 'lodash'
-gulp             = require 'gulp'
-gutil            = require 'gulp-util'
-rename           = require 'gulp-rename'
-gulpWebpack      = require 'gulp-webpack'
-uglify           = require 'gulp-uglify'
+_            = require 'lodash'
+gulp         = require 'gulp'
+gulpWebpack  = require 'gulp-webpack'
+gutil        = require 'gulp-util'
+rename       = require 'gulp-rename'
+sass         = require 'gulp-sass'
+uglify       = require 'gulp-uglify'
+autoprefixer = require 'gulp-autoprefixer'
+
 
 webpackParams =
 	module :
@@ -16,23 +19,42 @@ webpackParams =
 		filename: 'notifier.js'
 		library: 'Notifier'
 		libraryTarget: 'umd'
-	devtool: "#inline-source-map"
+
+if process.env.NODE_ENV is 'debug'
+	webpackParams.devtool = "#inline-source-map"
+
+
+gulp.task 'sass', ->
+	if process.env.NODE_ENV is 'production'
+		gulp.src 'src/css/notifier.scss'
+		.pipe sass(outputStyle: 'compressed').on 'error', sass.logError
+		.pipe autoprefixer()
+		.pipe rename 'notifier.min.css'
+		.pipe gulp.dest 'dist'
+	else
+		gulp.src 'src/css/notifier.scss'
+		.pipe sass(outputStyle: 'expanded').on 'error', sass.logError
+		.pipe autoprefixer()
+		.pipe gulp.dest 'dist'
 
 
 gulp.task 'webpack', ->
-	gulp.src 'src/notifier.coffee'
-	.pipe gulpWebpack webpackParams
-	.pipe gulp.dest('dist/')
+	if process.env.NODE_ENV is 'production'
+		gulp.src 'src/js/index.coffee'
+		.pipe gulpWebpack webpackParams
+		.pipe uglify()
+		.pipe rename 'notifier.min.js'
+		.pipe gulp.dest 'dist'
+	else
+		gulp.src 'src/js/index.coffee'
+		.pipe gulpWebpack webpackParams
+		.pipe gulp.dest 'dist'
 
-gulp.task 'production', ->
-	gulp.src 'src/notifier.coffee'
-	.pipe gulpWebpack _.assign webpackParams,
-		devtool: null
-	.pipe uglify()
-	.pipe rename('notifier.min.js')
-	.pipe gulp.dest('dist/')
+
+gulp.task 'default', ['webpack', 'sass']
 
 
-gulp.task 'default', ['webpack'], ->
-	# Reload browser on files changes except coffee/cjsx
-	gulp.watch ["src/*"], ['webpack']
+gulp.task 'watch', ['default'], ->
+	# Recompile on change
+	gulp.watch ["src/**/*.coffee"], ['webpack']
+	gulp.watch ["src/**/*.scss"], ['sass']
