@@ -1,0 +1,1 @@
+{"name":"Notifier","tagline":"Notification module","body":"### Notifier javascript umd module\r\nThis dependence-free plugin allows growl-like notifications. It is compatible with requireJS or commonJS (webpack / browserify), or can be used by loadind the javascript file directly.","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
