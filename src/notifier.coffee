@@ -111,13 +111,14 @@ class Notification
 
 	constructor: (params) ->
 		@DOMNode = null
+		@status  = 0
 
 		assign @, @defaults, params, id : uuid()
 
 
 	_constructDOMNode: ->
 		classes = [
-			bemItem,
+			bemItem
 			"#{bemItem}--#{@type}"
 		]
 
@@ -171,16 +172,16 @@ class Notification
 	getDOMNode: -> if @DOMNode? then @DOMNode else @_constructDOMNode()
 
 
-	showIn: (target, finishCallback) ->
+	showIn: (target) ->
+		@status = 1
 		@getDOMNode().appendTo target
 		@_getAnimator().transition 'enter', =>
-			finishCallback.apply @ if finishCallback?
 			@onShow.apply @ if @onShow?
 
 
-	remove: (finishCallback) ->
+	remove: ->
+		@status = 2
 		@_getAnimator().transition 'leave', =>
-			finishCallback.apply @ if finishCallback?
 			@onRemove.apply @ if @onRemove?
 			@getDOMNode().remove()
 
@@ -219,15 +220,6 @@ class Notifier
 			return id
 
 
-		cancel: (id) ->
-			if @queue[id]
-				clearTimeout @queue[id].delayTimeout
-				delete @queue[id]
-				true
-			else
-				false
-
-
 		register: (notification) ->
 			@queue[notification.id] = notification
 
@@ -245,20 +237,19 @@ class Notifier
 
 			return
 
-		clearAll: (includeDelayed = false) ->
-			for id, notification of @queue
-				@cancel id if includeDelayed
-				notification.remove()
-				delete @queue[notification.id] if @queue[notification.id]
 
+		clearAll: (includeDelayed = false) ->
+			@remove id for id, notification of @queue when includeDelayed or notification.status > 0
 
 
 		remove: (id) ->
 			if @queue[id]
+				clearTimeout @queue[id].delayTimeout
 				@queue[id].remove()
 				delete @queue[id]
-
-			return
+				true
+			else
+				false
 
 
 NotifierInstance = new Notifier
@@ -269,6 +260,5 @@ module.exports =
 	actionType   : ActionType
 	send         : NotifierInstance.send.bind NotifierInstance
 	clearAll     : NotifierInstance.clearAll.bind NotifierInstance
-	cancel       : NotifierInstance.cancel.bind NotifierInstance
 	remove       : NotifierInstance.remove.bind NotifierInstance
 	type         : NotificationType
