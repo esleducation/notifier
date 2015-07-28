@@ -20,9 +20,13 @@ module.exports = class Notifier
 			# Prepare empty queue
 			@queue = {}
 
-			# Append element on domready
-			document.addEventListener 'DOMContentLoaded', =>
+			# Append element if ready
+			if document.readyState == "complete" || document.readyState == "loaded"
 				@wrapper.appendTo document.body
+			# Append element on domready
+			else
+				document.addEventListener 'DOMContentLoaded', =>
+					@wrapper.appendTo document.body
 
 			return
 

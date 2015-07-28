@@ -2370,11 +2370,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Notifier() {
 	    this.wrapper = $("<div class='" + bemWrapper + "'></div>");
 	    this.queue = {};
-	    document.addEventListener('DOMContentLoaded', (function(_this) {
-	      return function() {
-	        return _this.wrapper.appendTo(document.body);
-	      };
-	    })(this));
+	    if (document.readyState === "complete" || document.readyState === "loaded") {
+	      this.wrapper.appendTo(document.body);
+	    } else {
+	      document.addEventListener('DOMContentLoaded', (function(_this) {
+	        return function() {
+	          return _this.wrapper.appendTo(document.body);
+	        };
+	      })(this));
+	    }
 	    return;
 	  }
 
