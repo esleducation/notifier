@@ -21,7 +21,7 @@ module.exports = class Notifier
 			@queue = {}
 
 			# Append element if ready
-			if document.readyState == "complete" || document.readyState == "loaded"
+			if document.readyState != "loading"
 				@wrapper.appendTo document.body
 			# Append element on domready
 			else
