@@ -2380,7 +2380,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Notifier() {
 	    this.wrapper = $("<div class='" + bemWrapper + "'></div>");
 	    this.queue = {};
-	    console.log('vasyy');
 	    if (document.readyState !== "loading") {
 	      this.wrapper.appendTo(document.body);
 	    } else {
