@@ -28,6 +28,16 @@ $grey   : #eee;
 	}
 }
 
+.eegnotifs--centered {
+	top: 50%;
+	right: 50%;
+	transform: translateX(50%) translateY(-50%);
+}
+
+.eegnotifs--large {
+	width: 36rem;
+}
+
 .eegnotif {
 	overflow: hidden;
 	position: relative;

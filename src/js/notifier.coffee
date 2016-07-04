@@ -42,6 +42,13 @@ module.exports = class Notifier
 			# Keep notification
 			id = @register notification
 
+			# add specific class to wrapper
+			if notification.large
+				@wrapper[0].className += " #{bemWrapper}--large"
+
+			if notification.center
+				@wrapper[0].className += " #{bemWrapper}--centered"
+
 			# Show notif
 			notification.delayTimeout = setTimeout =>
 				@show notification

@@ -24,6 +24,8 @@ module.exports = class Notification
 		duration     : 6
 		icon         : true                   # (font icon (/base64/img url)
 		modal        : false
+		center       : false  # add a ${bemWrapper}--centered class on the wrapper
+		large        : false #  add a ${bemWrapper}--large class on the wrapper and a ${bemItem}--large on the notif
 		template     : 'default'
 		text         : 'Hello world !'
 		type         : NotificationType.INFO
@@ -53,6 +55,7 @@ module.exports = class Notification
 
 		classes.push "#{bemItem}--icon" if @icon
 		classes.push "#{bemItem}--modal" if @modal
+		classes.push "#{bemItem}--large" if @large
 
 		@DOMNode = $ "
 			<div class='#{classes.join(' ')}' id='#{bemItem}--#{@id}'>
@@ -113,3 +116,13 @@ module.exports = class Notification
 		@_getAnimator().transition 'leave', =>
 			@onRemove.apply @ if @onRemove?
 			@getDOMNode().remove()
+
+		# when all Notif are removed:
+		# reset wrapper class (remove large, ...)
+		# add a timeout to
+		# 	- be shure the domeNode has bee removed
+		# 	- prevent the 1st remove (when page rener to rmeove the class..)
+		setTimeout ( ->
+			if document.getElementsByClassName("#{bemItem}").length < 1
+				document.getElementsByClassName("#{bemWrapper}")[0].className = "#{bemWrapper}"
+		), 400
