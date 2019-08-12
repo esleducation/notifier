@@ -1,21 +1,19 @@
 $                = require './domtastic-subset.coffee'
 Notification     = require './notification.coffee'
 
-
-###
-# Some settings
-###
-bemWrapper = 'eegnotifs'
-
-
 ###
 # Notifier class
 ###
 module.exports = class Notifier
+	
+		###
+		# Some settings
+		###
+		bemWrapper: 'eegnotifs'
 
 		constructor: ->
 			# Add notifications wrapper to document
-			@wrapper = $("<div class='#{bemWrapper}'></div>")
+			@wrapper = $("<div class='#{@bemWrapper}'></div>")
 
 			# Prepare empty queue
 			@queue = {}
@@ -44,10 +42,10 @@ module.exports = class Notifier
 
 			# add specific class to wrapper
 			if notification.large
-				@wrapper[0].className += " #{bemWrapper}--large"
+				@wrapper[0].className += " #{@bemWrapper}--large"
 
 			if notification.center
-				@wrapper[0].className += " #{bemWrapper}--centered"
+				@wrapper[0].className += " #{@bemWrapper}--centered"
 
 			# Show notif
 			notification.delayTimeout = setTimeout =>
